@@ -13,13 +13,13 @@ final class Conexao{
             define('db_host', 'localhost');
         }
         if(!defined('db_pass')){
-            define('db_pass', 'root');
+            define('db_pass', 'Star@pixel4268!');
         }
         if(!defined('db_name')){
             define('db_name', 'AulaTec');
         }
         if(!defined('db_port')){
-            define('db_port', 3360);
+            define('db_port', 3306);
         }
         try{
             $conn = new PDO('mysql:host='.db_host.'; port='.db_port.'; dbname='.db_name, db_user, db_pass, array(PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES utf8"));

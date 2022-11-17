@@ -66,7 +66,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 CREATE INDEX `fk_Venda_Cliente_idx` ON `aulatec`.`ordemservico` (`idCliente` ASC) VISIBLE;
 
-
 -- -----------------------------------------------------
 -- Table `aulatec`.`itemos`
 -- -----------------------------------------------------

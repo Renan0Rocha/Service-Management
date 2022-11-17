@@ -25,4 +25,12 @@
             $stmt->bindParam(':delPar',$id,PDO::PARAM_INT);
             $stmt->execute();
         }
+
+        public function listaUnico($campo, $campo2){
+            $sqlLista = "select $campo, $campo2 from {$this->tabela}";
+
+            $stmt = Conexao::prepare($sqlLista);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
     }
