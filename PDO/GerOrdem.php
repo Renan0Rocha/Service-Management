@@ -30,7 +30,7 @@
                 $ordem = new OrdemServico();
                 $id = filter_input(INPUT_GET, 'idDel');
                 $ordem->deletar('idOS', $id);
-            
+
             ?>
                 <script>
                     window.location.href = 'ordens.php';
@@ -54,53 +54,125 @@
                     window.location.href = 'ordens.php';
                 </script>
             <?php
-            } else{
+            } else {
             ?>
 
-            <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
-                <div class="row">
-                    <div class="col-md-2">
-                        <label for="txtNumero" class="form-label">N° Ordem de Serviço</label>
-                        <input type="text" name="txtNumero" id="txtNumero" class="form-control" value="<?php echo isset($ordemEdit->idOS) ? $ordemEdit->idOS : null ?>">
+                <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="txtNumero" class="form-label">N° Ordem de Serviço</label>
+                            <input type="text" name="txtNumero" id="txtNumero" class="form-control" value="<?php echo isset($ordemEdit->idOS) ? $ordemEdit->idOS : null ?>">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="txtData" class="form-label">Data</label>
+                            <input type="date" name="txtData" id="txtData" value="<?php echo date('Y-n-d') ?>" class="form-control">
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <label for="txtData" class="form-label">Data</label>
-                        <input type="date" name="txtData" id="txtData" value="<?php echo date('Y-n-d') ?>" class="form-control">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label for="sltCliente" class="form-label">Cliente</label>
+                            <select name="sltCliente" id="sltCliente" class="form-select">
+                                <?php
+                                $cliente = new Cliente();
+                                foreach ($cliente->listaUnico('nomeCliente', 'idCliente') as $key => $row) {
+                                ?>
+                                    <option value="<?php echo $row->idCliente ?>"><?php echo $row->nomeCliente ?></option>
+                                <?php
+                                };
+                                ?>
+                                ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8">
-                        <label for="sltCliente" class="form-label">Cliente</label>
-                        <select name="sltCliente" id="sltCliente" class="form-select">
-                            <?php
-                            $cliente = new Cliente();
-                            foreach ($cliente->listaUnico('nomeCliente', 'idCliente') as $key => $row) {
-                            ?>
-                                <option value="<?php echo $row->idCliente ?>"><?php echo $row->nomeCliente ?></option>
-                            <?php
-                            };
-                            ?>
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label for="txtTotal">Total</label>
-                    <input type="text" class="form-control" id="txtTotal" name="txtTotal" placeholder="Total" value="<?php echo isset($ordemEdit->totalOS) ? $ordemEdit->totalOS : null ?>">
 
-                </div>
-                <div>
-                    <label for="txtDescont">Desconto</label>
-                    <textarea name="txtDesconto" id="txtDesconto" class="form-control" placeholder="Descont"><?php echo isset($ordemEdit->descontoOS) ? $ordemEdit->descontoOS : null ?></textarea>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalOS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Lista de Serviços</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
-                </div>
-                <button type="submit" class="btn btn-primary" name="btnGravar">Salvar</button>                
-            </form>
-        <?php
-        }
-        ?>
+                                </div>
+                                <div class="modal-body">
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Serviço</th>
+                                                <th scope="col">Valor</th>
+                                                <th scope="col">Adionar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Formatar Notebook</td>
+                                                <td>250.00</td>
+                                                <td><button type="button" class="btn btn-primary" onclick="addServico(1, 'Formatar Notebook', 250)"><i class="bi bi-plus-square"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>Jacob</td>
+                                                <td>Thornton</td>
+                                                <td>@fat</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">3</th>
+                                                <td colspan="2">Larry the Bird</td>
+                                                <td>@twitter</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-primary">Salvar Mudanças</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 col-md-2">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalOS">
+                            Adicionar Serviço
+                        </button>
+                    </div>
+                    <div class="row mt-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Serviço</th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">Quantidade</th>
+                                    <th scope=""col>Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody id="itemOS">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <label for="txtTotal">Total</label>
+                        <input type="text" class="form-control" id="txtTotal" name="txtTotal" placeholder="Total" value="<?php echo isset($ordemEdit->totalOS) ? $ordemEdit->totalOS : null ?>">
+
+                    </div>
+                    <div>
+                        <label for="txtDescont">Desconto</label>
+                        <textarea name="txtDesconto" id="txtDesconto" class="form-control" placeholder="Descont"><?php echo isset($ordemEdit->descontoOS) ? $ordemEdit->descontoOS : null ?></textarea>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="btnGravar">Salvar</button>
+                </form>
+            <?php
+            }
+            ?>
         </section>
     </div>
+    <script src="js/script.js"></script>
     <?php include '_parts/_linkJS.php'; ?>
 </body>
 

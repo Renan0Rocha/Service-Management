@@ -60,6 +60,7 @@
             <i class="bi bi-file-earmark"></i> Novo
         </a>
     </div>
+    <script src="js/script.js"></script>
     <?php include '_parts/_linkJS.php'; ?>
 </body>
 
