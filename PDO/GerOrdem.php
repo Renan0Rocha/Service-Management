@@ -106,23 +106,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php
+                                                spl_autoload_register(function ($class) {
+                                                require_once "./Classes/{$class}.class.php";
+                                                });
+
+                                                $servicos = new Servico();
+                                                foreach($servicos->listaOrdenada('nomeServico') as $key=>$row){
+
+                                            ?>
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>Formatar Notebook</td>
-                                                <td>250.00</td>
-                                                <td><button type="button" class="btn btn-primary" onclick="addServico(1, 'Formatar Notebook', 250)"><i class="bi bi-plus-square"></i></td>
+                                                <th scope="row"><?php echo $row->idServico ?></th>
+                                                <td><?php echo $row->nomeServico ?></td>
+                                                <td><?php echo $row->precoServico ?></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" onclick="addServico('<?php echo $row->idServico ?>', '<?php echo $row->nomeServico ?>', '<?php echo $row->precoServico ?>')">
+                                                    <i class="bi bi-plus-square"></i>
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td colspan="2">Larry the Bird</td>
-                                                <td>@twitter</td>
-                                            </tr>
+                                        <?php
+                                            }
+                                        ?>
                                         </tbody>
                                     </table>
                                 </div>

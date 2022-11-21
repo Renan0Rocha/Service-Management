@@ -61,7 +61,7 @@
             ?>
                 <div class="mt-3 col-4" style=" margin: 0 auto; width: 400px;">
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <input type="hidden" name="txtId" value="<?php echo isset($ClienteEdit->idCliente) ? $clienteEdit->idCliente : null ?>">
+                        <input type="hidden" name="txtId" value="<?php echo isset($clienteEdit->idCliente) ? $clienteEdit->idCliente : null ?>">
                         <div class="form-group">
                             <label for="txtCliente">Cliente</label>
                             <input type="text" class="form-control" id="txtNome" name="txtNome" placeholder="Cliente" value="<?php echo isset($clienteEdit->nomeCliente) ? $clienteEdit->nomeCliente : null ?>">
