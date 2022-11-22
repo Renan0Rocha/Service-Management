@@ -1,7 +1,6 @@
 <?php
 
-Class Cliente extends Crud{
-
+class Cliente extends Crud{
     protected $tabela = 'cliente';
     private $idCliente;
     private $nomeCliente;
@@ -11,106 +10,98 @@ Class Cliente extends Crud{
     private $bairroCliente;
     private $cidadeCliente;
     private $estadoCliente;
-    
-    #metodos set's
 
-    public function setId($id){
+    #Set's
+    public function setIdCliente($id){
         $this->idCliente = $id;
     }
 
-    public function setNome($nomeCliente){
-        $this->nomeCliente = $nomeCliente;
+    public function setNomeCliente($nome){
+        $this->nomeCliente = $nome;
     }
 
-    public function setEndereco($enderecoCliente){
-        $this->enderecoCliente = $enderecoCliente;
-    }
-    
-    public function setTelefone($telefoneCliente){
-        $this->telefoneCliente = $telefoneCliente;
+    public function setEnderecoCliente($endereco){
+        $this->enderecoCliente = $endereco;
     }
 
-    public function setNascimento($nascimentoCliente){
-        $this->nascimentoCliente = $nascimentoCliente;
+    public function setTelefoneCliente($telefone){
+        $this->telefoneCliente = $telefone;
     }
 
-    public function setBairro($bairroCliente){
-        $this->bairroCliente = $bairroCliente;
+    public function setNascimentoCliente($nascimento){
+        $this->nascimentoCliente = $nascimento;
     }
 
-    public function setCidade($cidadeCliente){
-        $this->cidadeCliente = $cidadeCliente;
+    public function setBairroCliente($bairro){
+        $this->bairroCliente = $bairro;
     }
 
-    public function setEstado($estadoCliente){
-        $this->estadoCliente = $estadoCliente;
+    public function setCidadeCliente($cidade){
+        $this->cidadeCliente = $cidade;
     }
+
+    public function setEstadoCliente($estado){
+        $this->estadoCliente = $estado;
+    }
+
+
 
     #métodos Gets
-    public function getId(){
+    public function getIdCliente(){
         return $this->idCliente;
     }
 
-    public function getNome(){
+    public function getNomeCliente(){
         return $this->nomeCliente;
     }
 
-    public function getEndereco(){
+    public function getEnderecoCliente(){
         return $this->enderecoCliente;
     }
-    
-    public function getTelefone(){
+
+    public function getTelefoneCliente(){
         return $this->telefoneCliente;
     }
 
-    public function getNascimento(){
+    public function getNascimentoCliente(){
         return $this->nascimentoCliente;
     }
 
-    public function getBairro(){
+    public function getBairroCliente(){
         return $this->bairroCliente;
     }
 
-    public function getCidade(){
+    public function getCidadeCliente(){
         return $this->cidadeCliente;
     }
 
-    public function getEstado(){
+    public function getEstadoCliente(){
         return $this->estadoCliente;
     }
 
-    #Implementando a Função Abastrata
-
     public function inserir(){
-        $sqlInserir = "INSERT INTO $this->tabela (nomeCliente, enderecoCliente, telefoneCliente, nascimentoCliente, bairroCliente, cidadeCliente, estadoCliente)
-         values (:nome, :endereco, :telefone, :nascimento, :bairro, :cidade, :estado)";
+        $sqlInserir = "INSERT INTO {$this->tabela}(nomeCliente,enderecoCliente,telefoneCliente,nascimentoCliente,bairroCliente,cidadeCliente,estadoCliente) VALUES (:nomeCliente,:enderecoCliente,:telefoneCliente,:nascimentoCliente,:bairroCliente,:cidadeCliente,:estadoCliente)";
         $stmt = Conexao::prepare($sqlInserir);
-        $stmt->bindParam(':nome', $this->nomeCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':endereco', $this->enderecoCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':telefone', $this->telefoneCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':nascimento', $this->nascimentoCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':bairro', $this->bairroCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':cidade', $this->cidadeCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':estado', $this->estadoCliente, PDO::PARAM_STR);
+        $stmt->bindParam(':nomeCliente',$this->nomeCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':enderecoCliente',$this->enderecoCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':telefoneCliente',$this->telefoneCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':nascimentoCliente',$this->nascimentoCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':bairroCliente',$this->bairroCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':cidadeCliente',$this->cidadeCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':estadoCliente',$this->estadoCliente,PDO::PARAM_STR);
         $stmt->execute();
     }
-
-    public function atualizar($campo, $id)
-    {
-        $sqlAtualizar = "UPDATE $this->tabela SET nomeCliente = :nome, enderecoCliente = :endereco, telefoneCliente = :telefone,
-        nascimentoCliente = :nascimento, bairroCliente = :bairro, cidadeCliente = :cidade, estadoCliente = :estado WHERE $campo = :id";
+    public function atualizar($campo, $id){
+        $sqlAtualizar = "UPDATE {$this->tabela} SET nomeCliente = :nomeCliente,enderecoCliente = :enderecoCliente, telefoneCliente = :telefoneCliente, nascimentoCliente = :nascimentoCliente, bairroCliente = :bairroCliente, cidadeCliente = :cidadeCliente, estadoCliente = :estadoCliente WHERE $campo = :id ";
         $stmt = Conexao::prepare($sqlAtualizar);
-        $stmt->bindParam(':nome', $this->nomeCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':endereco', $this->enderecoCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':telefone', $this->telefoneCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':nascimento', $this->nascimentoCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':bairro', $this->bairroCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':cidade', $this->cidadeCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':estado', $this->estadoCliente, PDO::PARAM_STR);
-        $stmt->bindParam(':id',$id,PDO::PARAM_INT);
+        $stmt->bindParam(':nomeCliente',$this->nomeCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':enderecoCliente',$this->enderecoCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':telefoneCliente',$this->telefoneCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':nascimentoCliente',$this->nascimentoCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':bairroCliente',$this->bairroCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':cidadeCliente',$this->cidadeCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':estadoCliente',$this->estadoCliente,PDO::PARAM_STR);
+        $stmt->bindParam(':preco',$id,PDO::PARAM_INT);
         $stmt->execute();
-
     }
-
 }
-

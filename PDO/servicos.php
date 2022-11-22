@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include '_parts/_linkCSS.php'; ?>
-    <title>Usuários</title>
+    <title>Lista de Serviços</title>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
                 });
 
                 $servico = new Servico();
-                foreach($servico->listar() as $key => $row){  
+                foreach($servico->listar() as $key => $row) {
                 ?>
                     <tr>
                         <td class="text-center"><?php echo $row->idServico; ?></td>

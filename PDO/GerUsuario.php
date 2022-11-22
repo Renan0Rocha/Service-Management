@@ -46,11 +46,6 @@
                 } else {
                     $usuario->atualizar('idUsuario', $id);
                 }
-            ?>
-                <script>
-                    window.location.href = 'usuarios.php';
-                </script>
-            <?php
             }else{
                 ?>
                 <script>

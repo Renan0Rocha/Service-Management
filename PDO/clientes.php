@@ -16,38 +16,35 @@
     <?php include_once '_parts/_header.php'; ?>
     <div class="container mt-3">
         <table class="table">
-            <caption>Lista de clientes</caption>
+            <caption>Lista de Clientes</caption>
             <thead class="table-secondary">
                 <tr>
                     <th>Código</th>
                     <th>Nome</th>
                     <th>Telefone</th>
                     <th>Nascimento</th>
-                    <th>Cidade</th>
-                    <th>Estado</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-            <?php
+                <?php
                 spl_autoload_register(function ($class) {
                     require_once "./Classes/{$class}.class.php";
                 });
 
                 $cliente = new Cliente();
-                foreach($cliente->listar() as $key => $row){  
+                foreach ($cliente->listar() as $key=>$row) {
                 ?>
                     <tr>
                         <td class="text-center"><?php echo $row->idCliente; ?></td>
                         <td><?php echo $row->nomeCliente; ?></td>
                         <td><?php echo $row->telefoneCliente; ?></td>
-                        <td><?php echo $row->nascimentoCliente; ?></td>
-                        <td><?php echo $row->cidadeCliente; ?></td>
-                        <td><?php echo $row->estadoCliente; ?></td>
+                        <td><?php echo date('d/m/Y',strtotime($row->nascimentoCliente)); ?></td>
                         <td>
                             <a href="GerCliente.php?id=<?php echo $row->idCliente?>" class="btn btn-info">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a href="GerCliente.php?idDel=<?php echo $row->idCliente?>" class="btn btn-danger" onclick= "return confirm('Deseja excluir o Cliente <?php echo $row->nomeCliente; ?> ?')">
+                            <a href="GerCliente.php?idDel=<?php echo $row->idCliente?>" class="btn btn-danger" onclick= "return confirm('Deseja excluir o Serviço <?php echo $row->nomeServico; ?> ?')">
                                 <i class="bi bi-trash3-fill"></i>
                             </a>
                         </td>
